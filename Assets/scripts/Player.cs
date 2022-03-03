@@ -14,10 +14,14 @@ public class Player : MonoBehaviour
     public SpriteRenderer renderer;
     public Animator Macias_pajas;
     Rigidbody2D _rbobby;
+    
+    private Gamemanager gamemanager;
+    
     void Awake()
     {
          Macias_pajas = GetComponent<Animator>();
          _rbobby = GetComponent<Rigidbody2D>();
+         gamemanager = GameObject.Find("Gamemanager").GetComponent<Gamemanager>();
     }
     // Update is called once per frame
     void Update()
@@ -25,8 +29,8 @@ public class Player : MonoBehaviour
         dirx = Input.GetAxisRaw("Horizontal");
         Debug.Log(dirx);
         
-        transform.position += new Vector3(dirx, 0, 0) * speed * Time.deltaTime;
-
+        //transform.position += new Vector3(dirx, 0, 0) * speed * Time.deltaTime;
+         
        
           if(dirx == -1)
         {
@@ -47,5 +51,44 @@ public class Player : MonoBehaviour
            _rbobby.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
            Macias_pajas.SetBool("jumpe",true);
        }
+       
+       
+
+       
+
     }
+
+    void FixedUpdate()
+    {
+        _rbobby.velocity = new Vector2(dirx * speed,_rbobby.velocity.y);
+    }
+
+    void OnTriggerEnter2D(Collider2D collider){
+           
+            if(collider.gameObject.CompareTag("Monedas")){
+            Debug.Log("Moneda cogida");
+            Destroy(collider.gameObject);
+            
+    }
+
+           if(collider.gameObject.layer == 6){
+
+             Debug.Log("Goomba muerto");
+             gamemanager.Deadgoomba(collider.gameObject);
+
+
+           }
+
+           if(collider.gameObject.CompareTag("deadzone")){
+
+               Debug.Log("Moriste puto");
+               gamemanager.DeathMario();
+           }
+    }
+ 
+
+
+        
+
+
 }

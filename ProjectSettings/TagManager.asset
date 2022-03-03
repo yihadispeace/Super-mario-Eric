@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - deadzone
+  - tuberia
+  - muere mario
+  - mueremario
+  - Monedas
+  - banderaSFX
   layers:
   - Default
   - TransparentFX
@@ -11,7 +17,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - goomba
   - 
   - 
   - 
